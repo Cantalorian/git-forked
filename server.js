@@ -10,7 +10,7 @@ const routes = require('./controllers');
 
 const path = require("path");
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3001;
 const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sess = {
@@ -50,6 +50,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(routes);
+
+
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {console.log(`App listening on port ${PORT}!`);

@@ -9,8 +9,8 @@ async function restaurantFormHandler(event) {
     const zipcode = document.querySelector("#zipcode").value.trim();
 
     if (cuisine || rating || price || zipcode) {
-        let response = await fetch("/restaurants", {
-            method: "get",
+        let response = await fetch("/restaurants/restaurant", {
+            method: "GET",
             headers: { "Content-Type": "application/json" },
             params: {
                 cuisine: `${cuisine}`,

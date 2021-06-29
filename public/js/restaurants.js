@@ -21,19 +21,10 @@ async function restaurantFormHandler(event) {
         });
 
         if (response.ok) {
-            console.log(response.params);
+            console.log(response);
         } else {
             alert("Please select all options.");
         }
-        // ; (async () => {
-        //     const response = await axios({
-        //       // url:`https://randomuser.me/api/?results=50&nat=us`,
-        //       url: `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${zipcode}&rating=${rating}&price=${price}&categories=${cuisine}&limit=10`,
-        //       method: 'get'
-        //     })
-      
-        //     console.log(response.body);
-        //   })()
     }
 }
 

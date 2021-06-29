@@ -1,6 +1,7 @@
-const yelp = require('yelp-fusion');
+const axios = require("axios");
 require("dotenv").config();
 const router = require("express").Router();
+
 const { withAuth } = require("../utils/auth");
 
 router.get("/", withAuth, (req, res) => {
@@ -20,26 +21,32 @@ router.post("/restaurants", (req, res) => {
   let price = req.body.price;
   let cuisine = req.body.cuisine;
 
-  const apiKey = process.env.DB_API_KEY;
+      var config = {
+        method: "get",
+        // url:`https://randomuser.me/api/?results=50&nat=us`,
+        url: `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${zipcode}&rating=${rating}&price=${price}&categories=${cuisine}&limit=10`,
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      };
 
-    const searchRequest = {
-      term: cuisine,
-      location: zipcode,
-      rating: rating,
-      price: price,
-      limit: 5
-    };
-  
-    const client = yelp.client(apiKey);
-  
-  client.search(searchRequest)
-    .then((response) => {
-      console.log(response.jsonBody);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  
+      axios(config)
+        .then(function (response) {
+          return res.json(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    // ; (async () => {
+    //   const response = await axios({
+    //     // url:`https://randomuser.me/api/?results=50&nat=us`,
+    //     url: `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${zipcode}&rating=${rating}&price=${price}&categories=${cuisine}&limit=10`,
+    //     method: 'get'
+    //   })
+
+    //   console.log(response.body);
+    // })()
 });
 
 
